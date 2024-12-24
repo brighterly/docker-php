@@ -23,8 +23,10 @@ default:
     - cd $DIR
     - docker build --platform $PLATFORM -t $IMAGE:$TAG .
     - docker push $IMAGE:$TAG
-  only:
-    - main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
+        - '$DIR/**'
 
 build-8.3-fpm-amd:
   extends: .build
@@ -32,9 +34,6 @@ build-8.3-fpm-amd:
     DIR: 8.3-fpm
     TAG: 8.3-fpm-amd64
     PLATFORM: linux/amd64
-  rules:
-    - changes:
-        - 8.3-fpm
 
 build-8.3-fpm-arm:
   extends: .build
@@ -44,9 +43,6 @@ build-8.3-fpm-arm:
     PLATFORM: linux/arm64
   tags:
     - saas-linux-small-arm64
-  rules:
-    - changes:
-        - 8.3-fpm
 
 #
 # Merge stage
@@ -61,6 +57,3 @@ manifest-8.3-fpm:
     - docker manifest push $IMAGE:8.3-fpm
   only:
     - main
-  rules:
-    - changes:
-        - 8.3-fpm
