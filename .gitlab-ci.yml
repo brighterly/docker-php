@@ -26,14 +26,14 @@ default:
   only:
     - main
 
-build-8.3-amd:
+build-8.3-fpm-amd:
   extends: .build
   variables:
     DIR: 8.3-fpm
     TAG: 8.3-fpm-amd64
     PLATFORM: linux/amd64
 
-build-8.3-arm:
+build-8.3-fpm-arm:
   extends: .build
   variables:
     DIR: 8.3-fpm
@@ -46,7 +46,7 @@ build-8.3-arm:
 # Merge stage
 #
 
-manifest-8.3:
+manifest-8.3-fpm:
   stage: merge
   script:
     - docker manifest create $IMAGE:8.3-fpm
