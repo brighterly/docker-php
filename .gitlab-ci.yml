@@ -1,0 +1,57 @@
+stages:
+  - build
+  - merge
+
+variables:
+  IMAGE: brighterly/php
+
+default:
+  image: docker:26
+  services:
+    - docker:26
+  before_script:
+    - docker info
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+#
+# Build stage
+#
+
+.build:
+  stage: build
+  script:
+    - cd $DIR
+    - docker build --platform $PLATFORM -t $IMAGE:$TAG .
+    - docker push $IMAGE:$TAG
+  only:
+    - main
+
+build-8.3-amd:
+  extends: .build
+  variables:
+    DIR: 8.3-fpm
+    TAG: 8.3-fpm-amd64
+    PLATFORM: linux/amd64
+
+build-8.3-arm:
+  extends: .build
+  variables:
+    DIR: 8.3-fpm
+    TAG: 8.3-fpm-arm64
+    PLATFORM: linux/arm64
+  tags:
+    - saas-linux-small-arm64
+
+#
+# Merge stage
+#
+
+manifest-8.3:
+  stage: merge
+  script:
+    - docker manifest create $IMAGE:8.3-fpm
+        --amend $IMAGE:8.3-fpm-amd64
+        --amend $IMAGE:8.3-fpm-arm64
+    - docker manifest push $IMAGE:8.3-fpm
+  only:
+    - main
