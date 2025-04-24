@@ -28,34 +28,90 @@ default:
       changes:
         - '$DIR/**'
 
-build-8.3-fpm-amd:
+#build-8.3-fpm-amd:
+#  extends: .build
+#  variables:
+#    DIR: 8.3-fpm
+#    TAG: 8.3-fpm-amd64
+#    PLATFORM: linux/amd64
+#
+#build-8.3-fpm-arm:
+#  extends: .build
+#  variables:
+#    DIR: 8.3-fpm
+#    TAG: 8.3-fpm-arm64
+#    PLATFORM: linux/arm64
+#  tags:
+#    - saas-linux-small-arm64
+#
+#build-8.3-fpm-alpine-amd:
+#  extends: .build
+#  variables:
+#    DIR: 8.3-fpm-alpine
+#    TAG: 8.3-fpm-alpine-amd64
+#    PLATFORM: linux/amd64
+#
+#build-8.3-fpm-alpine-arm:
+#  extends: .build
+#  variables:
+#    DIR: 8.3-fpm-alpine
+#    TAG: 8.3-fpm-alpine-arm64
+#    PLATFORM: linux/arm64
+#  tags:
+#    - saas-linux-small-arm64
+#
+##
+## Merge stage
+##
+#
+#manifest-8.3-fpm:
+#  stage: merge
+#  script:
+#    - docker manifest create $IMAGE:8.3-fpm
+#        --amend $IMAGE:8.3-fpm-amd64
+#        --amend $IMAGE:8.3-fpm-arm64
+#    - docker manifest push $IMAGE:8.3-fpm
+#  only:
+#    - main
+#
+#manifest-8.3-fpm-alpine:
+#  stage: merge
+#  script:
+#    - docker manifest create $IMAGE:8.3-fpm-alpine
+#        --amend $IMAGE:8.3-fpm-alpine-amd64
+#        --amend $IMAGE:8.3-fpm-alpine-arm64
+#    - docker manifest push $IMAGE:8.3-fpm-alpine
+#  only:
+#    - main
+
+build-8.4-fpm-amd:
   extends: .build
   variables:
-    DIR: 8.3-fpm
-    TAG: 8.3-fpm-amd64
+    DIR: 8.4-fpm
+    TAG: 8.4-fpm-amd64
     PLATFORM: linux/amd64
 
-build-8.3-fpm-arm:
+build-8.4-fpm-arm:
   extends: .build
   variables:
-    DIR: 8.3-fpm
-    TAG: 8.3-fpm-arm64
+    DIR: 8.4-fpm
+    TAG: 8.4-fpm-arm64
     PLATFORM: linux/arm64
   tags:
     - saas-linux-small-arm64
 
-build-8.3-fpm-alpine-amd:
+build-8.4-fpm-alpine-amd:
   extends: .build
   variables:
-    DIR: 8.3-fpm-alpine
-    TAG: 8.3-fpm-alpine-amd64
+    DIR: 8.4-fpm-alpine
+    TAG: 8.4-fpm-alpine-amd64
     PLATFORM: linux/amd64
 
-build-8.3-fpm-alpine-arm:
+build-8.4-fpm-alpine-arm:
   extends: .build
   variables:
-    DIR: 8.3-fpm-alpine
-    TAG: 8.3-fpm-alpine-arm64
+    DIR: 8.4-fpm-alpine
+    TAG: 8.4-fpm-alpine-arm64
     PLATFORM: linux/arm64
   tags:
     - saas-linux-small-arm64
@@ -64,22 +120,22 @@ build-8.3-fpm-alpine-arm:
 # Merge stage
 #
 
-manifest-8.3-fpm:
+manifest-8.4-fpm:
   stage: merge
   script:
-    - docker manifest create $IMAGE:8.3-fpm
-        --amend $IMAGE:8.3-fpm-amd64
-        --amend $IMAGE:8.3-fpm-arm64
-    - docker manifest push $IMAGE:8.3-fpm
+    - docker manifest create $IMAGE:8.4-fpm
+      --amend $IMAGE:8.4-fpm-amd64
+      --amend $IMAGE:8.4-fpm-arm64
+    - docker manifest push $IMAGE:8.4-fpm
   only:
     - main
 
-manifest-8.3-fpm-alpine:
+manifest-8.4-fpm-alpine:
   stage: merge
   script:
-    - docker manifest create $IMAGE:8.3-fpm-alpine
-        --amend $IMAGE:8.3-fpm-alpine-amd64
-        --amend $IMAGE:8.3-fpm-alpine-arm64
-    - docker manifest push $IMAGE:8.3-fpm-alpine
+    - docker manifest create $IMAGE:8.4-fpm-alpine
+      --amend $IMAGE:8.4-fpm-alpine-amd64
+      --amend $IMAGE:8.4-fpm-alpine-arm64
+    - docker manifest push $IMAGE:8.4-fpm-alpine
   only:
     - main
