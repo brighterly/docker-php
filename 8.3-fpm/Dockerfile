@@ -17,7 +17,6 @@ RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" # FIXME
 #COPY php.ini $PHP_INI_DIR/php.ini
 COPY conf.d/* /usr/local/etc/php/conf.d/
 
-
 WORKDIR "/app"
 
 EXPOSE 9000
