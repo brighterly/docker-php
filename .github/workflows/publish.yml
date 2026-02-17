@@ -22,7 +22,7 @@ jobs:
             tag: 8.5-fpm
         arch: [amd64, arm64]
 
-    runs-on: ${{ matrix.arch == 'amd64' && 'ubuntu-latest' || 'ubuntu-24.04-arm64' }}
+    runs-on: ${{ matrix.arch == 'amd64' && 'ubuntu-latest' || 'ubuntu-24.04-arm' }}
 
     steps:
       - uses: actions/checkout@v4
