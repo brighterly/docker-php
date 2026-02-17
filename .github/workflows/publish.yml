@@ -37,7 +37,7 @@ jobs:
           cache-from: type=gha,scope=${{ matrix.version }}-${{ matrix.arch }}
           cache-to: type=gha,mode=max,scope=${{ matrix.version }}-${{ matrix.arch }}
 
-  create-manifest:
+  merge-images:
     needs: build
     runs-on: ubuntu-latest
     strategy:
@@ -50,7 +50,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Create and Push Manifest
+      - name: Create and Push Merged Image
         run: |
           docker buildx imagetools create -t brighterly/php:${{ matrix.version }} \
             brighterly/php:${{ matrix.version }}-amd64 \
