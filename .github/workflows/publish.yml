@@ -44,7 +44,6 @@ jobs:
 
       - name: Create and Push Manifest
         run: |
-          docker manifest create brighterly/php:${{ matrix.version }} \
-            --amend brighterly/php:${{ matrix.version }}-amd64 \
-            --amend brighterly/php:${{ matrix.version }}-arm64
-          docker manifest push brighterly/php:${{ matrix.version }}
+          docker buildx imagetools create -t brighterly/php:${{ matrix.version }} \
+            brighterly/php:${{ matrix.version }}-amd64 \
+            brighterly/php:${{ matrix.version }}-arm64
