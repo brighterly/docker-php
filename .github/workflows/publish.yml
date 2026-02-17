@@ -23,11 +23,14 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Arch-specific image
-        run: |
-          cd ${{ matrix.version }}
-          docker build -t brighterly/php:${{ matrix.version }}-${{ matrix.arch }} .
-          docker push brighterly/php:${{ matrix.version }}-${{ matrix.arch }}
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ matrix.version }}
+          push: true
+          tags: brighterly/php:${{ matrix.version }}-${{ matrix.arch }}
+          cache-from: type=gha,scope=${{ matrix.version }}-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.version }}-${{ matrix.arch }}
 
   create-manifest:
     needs: build
