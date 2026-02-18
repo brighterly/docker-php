@@ -17,6 +17,9 @@ RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" # FIXME
 #COPY php.ini $PHP_INI_DIR/php.ini
 COPY conf.d/* /usr/local/etc/php/conf.d/
 
+RUN mkdir -p /etc/mysql/conf.d && \
+    echo "[client]\nssl-verify-server-cert=0\n" > /etc/mysql/conf.d/99-fix-ssl.cnf
+
 WORKDIR "/app"
 
 EXPOSE 9000
