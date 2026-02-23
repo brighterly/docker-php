@@ -24,7 +24,7 @@ docker build -t brighterly/php:8.5-fpm .
 docker run -it brighterly/php:8.5-fpm bash
 ```
 
-#### 8.5-fpm-ffpmeg
+#### 8.5-fpm-ffmpeg
 
 ```shell
 cd 8.5-fpm-ffmpeg
