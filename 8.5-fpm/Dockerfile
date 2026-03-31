@@ -7,6 +7,7 @@ RUN apt-get update && apt-get -y install \
         unzip \
         libzip-dev \
         libicu-dev \
+        default-mysql-client \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install pdo pdo_mysql zip bcmath pcntl intl \
     && pecl install redis xdebug \

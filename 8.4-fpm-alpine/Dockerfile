@@ -7,6 +7,7 @@ RUN apk add --no-cache \
         unzip \
         libzip-dev \
         icu-dev \
+        mariadb-client \
         $PHPIZE_DEPS \
     && docker-php-ext-install pdo pdo_mysql zip bcmath opcache pcntl intl \
     && pecl install redis \
